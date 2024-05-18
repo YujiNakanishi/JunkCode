@@ -1,0 +1,69 @@
+import numpy as np
+import math
+import cupy as cp
+import sys
+
+def Label2Mask(voxel_label, Rs):
+	fx_mask = cp.where((cp.roll(voxel_label, 1, axis = 0) > 0)*(voxel_label == 0))
+	gx_mask = cp.where((cp.roll(voxel_label, -1, axis = 0) > 0)*(voxel_label == 0))
+	fy_mask = cp.where((cp.roll(voxel_label, 1, axis = 1) > 0)*(voxel_label == 0))
+	gy_mask = cp.where((cp.roll(voxel_label, -1, axis = 1) > 0)*(voxel_label == 0))
+	fz_mask = cp.where((cp.roll(voxel_label, 1, axis = 2) > 0)*(voxel_label == 0))
+	gz_mask = cp.where((cp.roll(voxel_label, -1, axis = 2) > 0)*(voxel_label == 0))
+	wall_mask = cp.where(voxel_label > 0)
+
+	r_fx_label = cp.roll(voxel_label, 1, axis = 0)[fx_mask]
+	r_fx = cp.array([Rs[rfl-1] for rfl in r_fx_label])
+
+	r_gx_label = cp.roll(voxel_label, -1, axis = 0)[gx_mask]
+	r_gx = cp.array([Rs[rgl-1] for rgl in r_gx_label])
+
+	r_fy_label = cp.roll(voxel_label, 1, axis = 1)[fy_mask]
+	r_fy = cp.array([Rs[rfl-1] for rfl in r_fy_label])
+
+	r_gy_label = cp.roll(voxel_label, -1, axis = 1)[gy_mask]
+	r_gy = cp.array([Rs[rgl-1] for rgl in r_gy_label])
+
+	r_fz_label = cp.roll(voxel_label, 1, axis = 2)[fz_mask]
+	r_fz = cp.array([Rs[rfl-1] for rfl in r_fz_label])
+
+	r_gz_label = cp.roll(voxel_label, -1, axis = 2)[gz_mask]
+	r_gz = cp.array([Rs[rgl-1] for rgl in r_gz_label])
+
+	return fx_mask, gx_mask, fy_mask, gy_mask, fz_mask, gz_mask, wall_mask, r_fx, r_gx, r_fy, r_gy, r_fz, r_gz
+
+
+def Label2Mask_IIR(voxel_label, As, Bs):
+	fx_mask = np.where((np.roll(voxel_label, 1, axis = 0) > 0)*(voxel_label == 0))
+	gx_mask = np.where((np.roll(voxel_label, -1, axis = 0) > 0)*(voxel_label == 0))
+	fy_mask = np.where((np.roll(voxel_label, 1, axis = 1) > 0)*(voxel_label == 0))
+	gy_mask = np.where((np.roll(voxel_label, -1, axis = 1) > 0)*(voxel_label == 0))
+	fz_mask = np.where((np.roll(voxel_label, 1, axis = 2) > 0)*(voxel_label == 0))
+	gz_mask = np.where((np.roll(voxel_label, -1, axis = 2) > 0)*(voxel_label == 0))
+	wall_mask = np.where(voxel_label > 0)
+
+	r_fx_label = np.roll(voxel_label, 1, axis = 0)[fx_mask]
+	As_fx = np.stack([As[rfl-1] for rfl in r_fx_label], axis = 1)
+	Bs_fx = np.stack([Bs[rfl-1] for rfl in r_fx_label], axis = 1)
+
+	r_gx_label = np.roll(voxel_label, -1, axis = 0)[gx_mask]
+	As_gx = np.stack([As[rgl-1] for rgl in r_gx_label], axis = 1)
+	Bs_gx = np.stack([Bs[rgl-1] for rgl in r_gx_label], axis = 1)
+
+	r_fy_label = np.roll(voxel_label, 1, axis = 1)[fy_mask]
+	As_fy = np.stack([As[rfl-1] for rfl in r_fy_label], axis = 1)
+	Bs_fy = np.stack([Bs[rfl-1] for rfl in r_fy_label], axis = 1)
+
+	r_gy_label = np.roll(voxel_label, -1, axis = 1)[gy_mask]
+	As_gy = np.stack([As[rgl-1] for rgl in r_gy_label], axis = 1)
+	Bs_gy = np.stack([Bs[rgl-1] for rgl in r_gy_label], axis = 1)
+
+	r_fz_label = np.roll(voxel_label, 1, axis = 2)[fz_mask]
+	As_fz = np.stack([As[rfl-1] for rfl in r_fz_label], axis = 1)
+	Bs_fz = np.stack([Bs[rfl-1] for rfl in r_fz_label], axis = 1)
+
+	r_gz_label = np.roll(voxel_label, -1, axis = 2)[gz_mask]
+	As_gz = np.stack([As[rgl-1] for rgl in r_gz_label], axis = 1)
+	Bs_gz = np.stack([Bs[rgl-1] for rgl in r_gz_label], axis = 1)
+
+	return fx_mask, gx_mask, fy_mask, gy_mask, fz_mask, gz_mask, wall_mask, As_fx, Bs_fx, As_gx, Bs_gx, As_fy, Bs_fy, As_gy, Bs_gy, As_fz, Bs_fz, As_gz, Bs_gz
