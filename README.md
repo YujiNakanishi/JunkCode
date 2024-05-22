@@ -17,6 +17,8 @@
 * torch_model : pytorchでマイナーな活性化関数やレイヤーなどを実装
 * VAE_img : 画像をデータとするVAEのサンプルコード。サンプルデータにはMNISTを使用。DataSetにはImageFolderを使用。
 * VAE_vector : 数ベクトルをデータとするVAEのサンプルコード。サンプルデータにはMNISTを使用。
+### MachineLearning
+* SimulatedAnnealing : 焼きなまし法のサンプルコード。
 ### Math
 * pyMath : 昔作ったMath module。
 * pygraph : 昔作ったgraph モジュール(木構造など)。
