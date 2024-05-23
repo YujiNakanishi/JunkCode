@@ -1,6 +1,9 @@
 # JunkCode
 見返すことがありそうなコードの集合
 ## フォルダ構成
+### Computer Geometry
+* ICP : ICPによる点群データ位置合わせのサンプルコード。
+* Rotation : ロドリゲスの回転行列を計算。
 ### Data Set
 * pyJHTDB : pyJHTDBによる乱流データセット収集コード。
 * grib2 : 昔作ったGRIB2ファイル形式の読み込み用module。
