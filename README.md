@@ -21,6 +21,7 @@
 * VAE_img : 画像をデータとするVAEのサンプルコード。サンプルデータにはMNISTを使用。DataSetにはImageFolderを使用。
 * VAE_vector : 数ベクトルをデータとするVAEのサンプルコード。サンプルデータにはMNISTを使用。
 ### MachineLearning
+* ImportanceWeightedLearning : 重要度重み付き転移学習のサンプルコード。密度比推定のためにuLSIFのコードもある。
 * SimulatedAnnealing : 焼きなまし法のサンプルコード。
 ### Math
 * pyMath : 昔作ったMath module。
