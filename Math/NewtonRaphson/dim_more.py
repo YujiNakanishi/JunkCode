@@ -2,6 +2,9 @@
 Newton-Raphson法による非線形連立方程式の求解
 """
 import numpy as np
+import autograd
+import sys
+from scipy import optimize
 
 def f(X):
     x, y = X
@@ -25,3 +28,15 @@ for _ in range(100):
         break
     X += np.linalg.solve(Jacob(X), -f(X))
 print(X)
+
+
+
+def Newton_Raphson(func_list, x):
+    def function(x):
+        return np.array([func(x) for func in func_list])
+    
+    def Jacob(x):
+        return np.stack([autograd.grad(func)(x) for func in func_list], axis = 0)
+    
+    solution = optimize.root(function, x, jac = Jacob)
+    return solution.x

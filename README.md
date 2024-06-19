@@ -9,8 +9,10 @@
 * grib2 : 昔作ったGRIB2ファイル形式の読み込み用module。
 ### Deep Learning
 * ConditionalDiffusion_img : 条件付きDDPMのサンプルコード。
+* DeepLagrangianFluid : CCONVの練習。
 * Diffusion_img : DDPMのサンプルコード。
 * FINER : 活性化関数FINERの実装。及びスペクトルバイアスについて他活性化関数と比較。
+* Graph : GNNの練習。
 * img_classification : PytorchによるCIFAR-10画像分類。
 * ISGD_PINNs : PytorchによるImplicit Stochastic Gradient Descent PINNs。
 * Kolmogorov_Arnold_Network : Kolmogorov Arnold Networkの実装。
