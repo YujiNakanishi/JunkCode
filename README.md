@@ -25,6 +25,7 @@
 ### MachineLearning
 * ImportanceWeightedLearning : 重要度重み付き転移学習のサンプルコード。密度比推定のためにuLSIFのコードもある。
 * SimulatedAnnealing : 焼きなまし法のサンプルコード。
+* CMA_ES : CMA=ES法のサンプルコード。
 ### Math
 * NewtonRaphson : NewtonRaphson法による非線形方程式の求解。
 * pyMath : 昔作ったMath module。
