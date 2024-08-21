@@ -6,7 +6,7 @@ class CMA_ES:
     generation = 0 #世代数
     def __init__(self,
                  mean : np.ndarray, #初期の平均ベクトル
-                 sigma : float, #初期の分散値
+                 sigma : np.ndarray, #初期の分散値
                  func, #目的関数
                  lam : int = None, #個体数
                  cm : float = 1. #学習率
@@ -99,15 +99,23 @@ class CMA_ES:
         )
         for o_, ys in zip(omega_o, y_sort):
             self.C += self.cmu*o_*ys.reshape((-1, 1))@ys.reshape((1, -1))
+        self.C = 0.5*(self.C + self.C.T) + 1e-3*np.eye(len(self.C))
         
 
 def func(x):
-    return np.sum(x**2)
+    points = np.array([1., 2., 3.])
+    a_ans, b_ans, c_ans = 2., 1., -1.
+    ans = a_ans*np.sin((2.*points)) + b_ans*np.cos(points) + c_ans
+    a, b, c = x
+    pred = a*np.sin((2.*points)) + b*np.cos(points) + c
 
-mean = np.random.rand(3) + 0.5
-sigma = 0.1
-model = CMA_ES(mean, sigma, func)
-print(model.mean)
-for i in range(1000):
-    model.update()
-    print(model.mean)
+    return float(np.sum((pred - ans)**2))
+
+if __name__ == "__main__":
+    mean = np.array([0., 0., 0.])
+    sigma = np.array([0.1, 0.1, 0.1])
+    model = CMA_ES(mean, sigma, func, lam = 20)
+    # print(model.mean)
+    for i in range(10):
+        model.update()
+        print(model.mean)
