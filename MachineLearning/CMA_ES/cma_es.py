@@ -112,10 +112,12 @@ def func(x):
     return float(np.sum((pred - ans)**2))
 
 if __name__ == "__main__":
-    mean = np.array([0., 0., 0.])
-    sigma = np.array([0.1, 0.1, 0.1])
-    model = CMA_ES(mean, sigma, func, lam = 20)
-    # print(model.mean)
-    for i in range(10):
-        model.update()
-        print(model.mean)
+    a = int(4 + np.floor(3*np.log(9)))
+    print(a)
+    # mean = np.array([0., 0., 0.])
+    # sigma = np.array([0.1, 0.1, 0.1])
+    # model = CMA_ES(mean, sigma, func, lam = 20)
+    # # print(model.mean)
+    # for i in range(10):
+    #     model.update()
+    #     print(model.mean)
