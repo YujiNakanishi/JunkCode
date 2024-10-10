@@ -48,3 +48,7 @@ ref : https://arxiv.org/pdf/2003.09855
 class TanhExp(Absolute):
     def forward(self, x):
         return x*torch.tanh(torch.exp(x))
+
+class FINER(Absolute):
+    def forward(self, x):
+        return torch.sin(x*(torch.abs(x) + 1.))
